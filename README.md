@@ -15,3 +15,13 @@
 ## build proj
 
 truffle unbox pet-shop
+
+## command
+
+truffle migrate --reset
+
+truffle console
+
+LNet.deployed().then(function(i) { app = i })
+
+app.bills(1)
