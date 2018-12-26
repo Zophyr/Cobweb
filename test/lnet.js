@@ -2,6 +2,26 @@ var LNet = artifacts.require("./LNet.sol");
 
 contract("LNet", function() {
     var lnetInstance;
+
+    var addressList;
+
+    var ETHUNIT = 1000000000000000000;
+
+    function toETH(input) {
+        return input * ETHUNIT;
+    }
+    
+    // web3.eth.getAccounts().then(result => { addressList = result; console.log(addressList);});
+
+    it("find address", function() {
+        return web3.eth.getAccounts().then(function(i) {
+            addressList = i;
+            return addressList;
+        }).then(function(ads) {
+            console.log(ads);
+            assert.equal(ads.length, 10, "fucking ok?");
+        })
+    });
     
     it("initializes with two bills", function() {
         return LNet.deployed().then(function(i) {
@@ -26,6 +46,26 @@ contract("LNet", function() {
             assert.equal(bill[1], 3, "contains the correct money");
             assert.equal(bill[2], 0xa3E60385738e626BD09F79FAd5151D41dB8E6034, "contains the correct giver");
             assert.equal(bill[3], 0x5c922c7aF44FA622AD759B2829422CAa4a6f6677, "contains the correct asker");
+        })
+    });
+
+    it("try give money", function() {
+        return LNet.deployed().then(function(i) {
+            lnetInstance = i;
+            return lnetInstance.giveMoney({from: addressList[1], value: toETH(10)});
+        }).then(function(fuckAdd) {
+            lnetInstance.getBitch().then(pig => {
+                assert.equal(pig, toETH(10), "ok?");
+            })
+        })
+    })
+
+    it("try take money", function() {
+        return LNet.deployed().then(function(i) {
+            lnetInstance = i;
+            return lnetInstance.takeMoney(10, {from: addressList[2]});
+        }).then(function(result) {
+            assert.equal(1, 1, "fuck?");
         })
     })
 });
