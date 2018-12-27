@@ -1,4 +1,4 @@
-# LNet
+# Cobweb
 
 💸 A P2P lending platform.
 
