@@ -7,6 +7,9 @@ contract LNet {
         uint money;
         address giver;
         address asker;
+        bool isTake;
+        bool isBack;
+        bool isDone;
     }
 
     // store bills
