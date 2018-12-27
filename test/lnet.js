@@ -53,4 +53,14 @@ contract("LNet", function () {
             });
         });
     });
+
+    it("Try to return money by asker. ", function () {
+        return LNet.deployed().then(function (i) {
+            lnetInstance = i;
+            return lnetInstance.backMoney(1, {
+                from: addressList[2],
+                value: toETH('1')
+            })
+        });
+    });
 });
