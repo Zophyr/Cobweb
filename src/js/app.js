@@ -1,68 +1,146 @@
 App = {
   web3Provider: null,
   contracts: {},
+  account: '0x0',
+  hasVoted: false,
 
-  init: async function() {
-    // Load pets.
-    $.getJSON('../pets.json', function(data) {
-      var petsRow = $('#petsRow');
-      var petTemplate = $('#petTemplate');
-
-      for (i = 0; i < data.length; i ++) {
-        petTemplate.find('.panel-title').text(data[i].name);
-        petTemplate.find('img').attr('src', data[i].picture);
-        petTemplate.find('.pet-breed').text(data[i].breed);
-        petTemplate.find('.pet-age').text(data[i].age);
-        petTemplate.find('.pet-location').text(data[i].location);
-        petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
-
-        petsRow.append(petTemplate.html());
-      }
-    });
-
-    return await App.initWeb3();
+  init: function () {
+    return App.initWeb3();
   },
 
-  initWeb3: async function() {
-    /*
-     * Replace me...
-     */
-
+  // ! do not need to change.
+  initWeb3: function () {
+    // TODO: refactor conditional
+    if (typeof web3 !== 'undefined') {
+      // If a web3 instance is already provided by Meta Mask.
+      App.web3Provider = web3.currentProvider;
+      web3 = new Web3(web3.currentProvider);
+    } else {
+      // Specify default instance if no web3 instance provided
+      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+      web3 = new Web3(App.web3Provider);
+    }
     return App.initContract();
   },
 
-  initContract: function() {
-    /*
-     * Replace me...
-     */
+  initContract: function () {
+    $.getJSON("LNet.json", function (lnet) {
+      // Instantiate a new truffle contract from the artifact
+      App.contracts.LNet = TruffleContract(lnet);
+      // Connect provider to interact with contract
+      App.contracts.LNet.setProvider(App.web3Provider);
 
-    return App.bindEvents();
+      return App.render();
+    });
   },
 
-  bindEvents: function() {
-    $(document).on('click', '.btn-adopt', App.handleAdopt);
+  render: function () {
+    var lnetInstance;
+    var addressList;
+    var loader = $("#loader");
+    var content = $("#content");
+
+    loader.show();
+    content.hide();
+
+    // Load account data
+    web3.eth.getCoinbase(function (err, account) {
+      if (err === null) {
+        App.account = account;
+        $("#accountAddress").html("Your Account: " + account);
+      }
+    });
+
+    // App.contracts.LNet.deployed().then(function (i) {
+    //   lnetInstance = i;
+    //   web3.eth.getAccounts().then(function (i) {
+    //     addressList = i;
+    //     return addressList;
+    //   }).then(function (thelist) {
+    //     lnetInstance.createBill(toETH('111'), addressList[1], addressList[2], {
+    //       from: addressList[1],
+    //       value: toETH('111')
+    //     });
+    //     lnetInstance.createBill(toETH('222'), addressList[3], addressList[4], {
+    //       from: addressList[3],
+    //       value: toETH('222')
+    //     });
+    //     return lnetInstance.billCount();
+    //   }).then(function (billCount) {
+    //     console.log(billCount);
+    //   })
+    // })
+
+    App.contracts.LNet.deployed().then(function (i) {
+      lnetInstance = i;
+      return lnetInstance;
+    }).then(function (ins) {
+      addressList = web3.eth.accounts;
+      console.log(addressList);
+      return lnetInstance.createBill(111, '0x6dCAEab87D9CC0723f61692A60943b585160ab73', '0x6dCAEab87D9CC0723f61692A60943b585160ab73', {
+        from: '0x6dCAEab87D9CC0723f61692A60943b585160ab73',
+        value: 111
+      })
+      // return lnetInstance.billCount()
+    }).then(() => {
+      return lnetInstance.billCount();
+    }).then ((billCount) => {
+      console.log(billCount.toNumber());
+    });
+
+
+    // Load contract data
+    // App.contracts.LNet.deployed().then(function(instance) {
+    //   lnetInstance = instance;
+    //   return lnetInstance.billCount();
+    // }).then(function(billCount) {
+    //   console.log(billCount.toNumber());
+    //   var candidatesResults = $("#candidatesResults");
+    //   candidatesResults.empty();
+
+    //   var candidatesSelect = $('#candidatesSelect');
+    //   candidatesSelect.empty();
+
+    //   for (var i = 1; i <= billCount; i++) {
+    //     lnetInstance.bills(i).then(function(candidate) {
+    //       var id = candidate[0];
+    //       var name = candidate[1];
+    //       var voteCount = candidate[2];
+
+    //       // Render candidate Result
+    //       var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>"
+    //       candidatesResults.append(candidateTemplate);
+
+    //       // Render candidate ballot option
+    //       // var candidateOption = "<option value='" + id + "' >" + name + "</ option>"
+    //       // candidatesSelect.append(candidateOption);
+    //     });
+    //   }
+
+    //   loader.hide();
+    //   content.show();
+    //   // return lnetInstance.voters(App.account);
+    // }).catch(function(error) {
+    //   console.warn(error);
+    // });
   },
 
-  markAdopted: function(adopters, account) {
-    /*
-     * Replace me...
-     */
-  },
-
-  handleAdopt: function(event) {
-    event.preventDefault();
-
-    var petId = parseInt($(event.target).data('id'));
-
-    /*
-     * Replace me...
-     */
-  }
-
+  //   castVote: function() {
+  //     var candidateId = $('#candidatesSelect').val();
+  //     App.contracts.LNet.deployed().then(function(instance) {
+  //       return instance.vote(candidateId, { from: App.account });
+  //     }).then(function(result) {
+  //       // Wait for votes to update
+  //       $("#content").hide();
+  //       $("#loader").show();
+  //     }).catch(function(err) {
+  //       console.error(err);
+  //     });
+  //   }
 };
 
-$(function() {
-  $(window).load(function() {
+$(function () {
+  $(window).load(function () {
     App.init();
   });
 });
