@@ -63,4 +63,13 @@ contract("LNet", function () {
             })
         });
     });
+
+    it("Try to callback money by giver. ", function () {
+        return LNet.deployed().then(function (i) {
+            lnetInstance = i;
+            return lnetInstance.healMoney(1, toETH('1'), {
+                from: addressList[1]
+            });
+        });
+    });
 });
