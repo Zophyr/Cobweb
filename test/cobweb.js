@@ -55,6 +55,13 @@ contract("Cobweb", function () {
             return cobInstance.bills(1);
         }).then(function (bill) {
             assert.equal(bill.isTake, true, "contains the money has been taken away");
+            return cobInstance.takeMoney(2, toETH('10'), {
+                from: addressList[4]
+            })
+        }).then(function (result) {
+            return cobInstance.bills(2);
+        }).then(function (bill) {
+            assert.equal(bill.isTake, true, "contains the money has been taken away");
         });
     });
 
@@ -69,6 +76,14 @@ contract("Cobweb", function () {
             return cobInstance.bills(1);
         }).then(function (bill) {
             assert.equal(bill.isBack, true, "contains the money has been return");
+            return cobInstance.backMoney(2, {
+                from: addressList[4],
+                value: toETH('10')
+            })
+        }).then(function (result) {
+            return cobInstance.bills(2);
+        }).then(function (bill) {
+            assert.equal(bill.isBack, true, "contains the money has been return");
         });
     });
 
@@ -80,6 +95,13 @@ contract("Cobweb", function () {
             });
         }).then(function (result) {
             return cobInstance.bills(1);
+        }).then(function (bill) {
+            assert.equal(bill.isDone, true, "contains the money has been callback");
+            return cobInstance.healMoney(2, toETH('10'), {
+                from: addressList[3]
+            })
+        }).then(function (result) {
+            return cobInstance.bills(2);
         }).then(function (bill) {
             assert.equal(bill.isDone, true, "contains the money has been callback");
         });
