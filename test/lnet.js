@@ -18,7 +18,7 @@ contract("LNet", function () {
             addressList = i;
             return addressList;
         }).then(function (ads) {
-            assert.equal(ads.length, 10, "fucking ok?");
+            assert.equal(ads.length, 20, "fucking ok?");
         })
     });
 
