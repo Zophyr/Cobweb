@@ -1,9 +1,9 @@
-var LNet = artifacts.require("./LNet.sol");
+var Cobweb = artifacts.require("./Cobweb.sol");
 
-contract("LNet", function () {
+contract("Cobweb", function () {
     var addressList;
 
-    var lnetInstance;
+    var cobInstance;
 
     // the input must is stirng type.
     function toETH(input) {
@@ -20,23 +20,23 @@ contract("LNet", function () {
     });
 
     it("Create two bills. ", function () {
-        return LNet.deployed().then(function (i) {
-            lnetInstance = i;
-            lnetInstance.createBill(toETH('1'), addressList[1], addressList[2], {
+        return Cobweb.deployed().then(function (i) {
+            cobInstance = i;
+            cobInstance.createBill(toETH('1'), addressList[1], addressList[2], {
                 from: addressList[1],
                 value: toETH('1')
             });
-            lnetInstance.createBill(toETH('10'), addressList[3], addressList[4], {
+            cobInstance.createBill(toETH('10'), addressList[3], addressList[4], {
                 from: addressList[3],
                 value: toETH('10')
             });
-            return lnetInstance.bills(1);
+            return cobInstance.bills(1);
         }).then(function (bill) {
             assert.equal(bill.id, 1, "contains the correct id");
             assert.equal(bill.money, toETH('1'), "contains the correct money");
             assert.equal(bill.giver, addressList[1], "contains the correct giver");
             assert.equal(bill.asker, addressList[2], "contains the correct asker");
-            return lnetInstance.bills(2);
+            return cobInstance.bills(2);
         }).then(function (bill) {
             assert.equal(bill.id, 2, "contains the correct id");
             assert.equal(bill.money, toETH('10'), "contains the correct money");
@@ -46,40 +46,40 @@ contract("LNet", function () {
     });
 
     it("Try to withdraw money by asker. ", function () {
-        return LNet.deployed().then(function (i) {
-            lnetInstance = i;
-            return lnetInstance.takeMoney(1, toETH('1'), {
+        return Cobweb.deployed().then(function (i) {
+            cobInstance = i;
+            return cobInstance.takeMoney(1, toETH('1'), {
                 from: addressList[2]
             });
         }).then(function (result) {
-            return lnetInstance.bills(1);
+            return cobInstance.bills(1);
         }).then(function (bill) {
             assert.equal(bill.isTake, true, "contains the money has been taken away");
         });
     });
 
     it("Try to return money by asker. ", function () {
-        return LNet.deployed().then(function (i) {
-            lnetInstance = i;
-            return lnetInstance.backMoney(1, {
+        return Cobweb.deployed().then(function (i) {
+            cobInstance = i;
+            return cobInstance.backMoney(1, {
                 from: addressList[2],
                 value: toETH('1')
             })
         }).then(function (result) {
-            return lnetInstance.bills(1);
+            return cobInstance.bills(1);
         }).then(function (bill) {
             assert.equal(bill.isBack, true, "contains the money has been return");
         });
     });
 
     it("Try to callback money by giver. ", function () {
-        return LNet.deployed().then(function (i) {
-            lnetInstance = i;
-            return lnetInstance.healMoney(1, toETH('1'), {
+        return Cobweb.deployed().then(function (i) {
+            cobInstance = i;
+            return cobInstance.healMoney(1, toETH('1'), {
                 from: addressList[1]
             });
         }).then(function (result) {
-            return lnetInstance.bills(1);
+            return cobInstance.bills(1);
         }).then(function (bill) {
             assert.equal(bill.isDone, true, "contains the money has been callback");
         });

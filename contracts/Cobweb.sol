@@ -1,6 +1,6 @@
 pragma solidity ^0.5.0;
 
-contract LNet {
+contract Cobweb {
     // model a bill
     struct Bill {
         uint id;

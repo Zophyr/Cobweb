@@ -1,5 +1,5 @@
-var LNet = artifacts.require("./LNet.sol");
+var Cobweb = artifacts.require("./Cobweb.sol");
 
 module.exports = function (deployer) {
-    deployer.deploy(LNet);
+    deployer.deploy(Cobweb);
 };
