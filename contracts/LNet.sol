@@ -18,11 +18,27 @@ contract LNet {
 
     uint public billCount;
 
-    function createBill (uint _money, address _giver, address _asker) public payable returns(bool){
+    function createBill (uint _money, address _giver, address _asker) public payable {
         require(msg.value == _money, "Giver money whether enought");
         require(msg.sender == _giver, "address right?");
         _createBill(_money, _giver, _asker);
-        return true;
+    }
+
+    function takeMoney (uint _id, uint _money) public {
+        require(_money == bills[_id].money, "fuck ok?");
+        require(msg.sender == bills[_id].asker, "address ok?");
+        msg.sender.transfer(_money);
+    }
+
+    function backMoney (uint _id) public payable {
+        require(msg.value == bills[_id].money, "back right money?");
+        require(msg.sender == bills[_id].asker, "address ok?");
+    }
+
+    function healMoney (uint _id, uint _money) public {
+        require(_money == bills[_id].money, "fuck ok?");
+        require(msg.sender == bills[_id].giver, "address ok?");
+        msg.sender.transfer(_money);
     }
 
     // constructor () public {
