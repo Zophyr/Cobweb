@@ -51,6 +51,10 @@ contract("LNet", function () {
             return lnetInstance.takeMoney(1, toETH('1'), {
                 from: addressList[2]
             });
+        }).then(function (result) {
+            return lnetInstance.bills(1);
+        }).then(function (bill) {
+            assert.equal(bill.isTake, true, "contains the money has been taken away");
         });
     });
 
@@ -61,6 +65,10 @@ contract("LNet", function () {
                 from: addressList[2],
                 value: toETH('1')
             })
+        }).then(function (result) {
+            return lnetInstance.bills(1);
+        }).then(function (bill) {
+            assert.equal(bill.isBack, true, "contains the money has been return");
         });
     });
 
@@ -70,6 +78,10 @@ contract("LNet", function () {
             return lnetInstance.healMoney(1, toETH('1'), {
                 from: addressList[1]
             });
+        }).then(function (result) {
+            return lnetInstance.bills(1);
+        }).then(function (bill) {
+            assert.equal(bill.isDone, true, "contains the money has been callback");
         });
     });
 });
