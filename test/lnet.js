@@ -10,7 +10,7 @@ contract("LNet", function () {
         return web3.utils.toWei(input, 'ether');
     }
 
-    it("Connect the blockchain and find the address.", function () {
+    it("Connect the blockchain and find the address. ", function () {
         return web3.eth.getAccounts().then(function (i) {
             addressList = i;
             return addressList;
@@ -19,7 +19,7 @@ contract("LNet", function () {
         })
     });
 
-    it("Create two bills.", function () {
+    it("Create two bills. ", function () {
         return LNet.deployed().then(function (i) {
             lnetInstance = i;
             lnetInstance.createBill(toETH('1'), addressList[1], addressList[2], {
@@ -42,6 +42,15 @@ contract("LNet", function () {
             assert.equal(bill.money, toETH('10'), "contains the correct money");
             assert.equal(bill.giver, addressList[3], "contains the correct giver");
             assert.equal(bill.asker, addressList[4], "contains the correct asker");
+        });
+    });
+
+    it("Try to withdraw money by asker. ", function () {
+        return LNet.deployed().then(function (i) {
+            lnetInstance = i;
+            return lnetInstance.takeMoney(1, toETH('1'), {
+                from: addressList[2]
+            });
         });
     });
 });
