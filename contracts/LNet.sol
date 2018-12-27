@@ -32,8 +32,15 @@ contract LNet {
 
     // asker can use this methon to return money
     function backMoney (uint _id) public payable {
-        require(msg.value == bills[_id].money, "back right money?");
-        require(msg.sender == bills[_id].asker, "address ok?");
+        require(msg.value == bills[_id].money, "The money is the same as the money previously registered. ");
+        require(msg.sender == bills[_id].asker, "The request was sent by asker.");
+    }
+
+    // giver can use this methon to callback money
+    function healMoney (uint _id, uint _money) public {
+        require(_money == bills[_id].money, "The money is the same as the money previously registered. ");
+        require(msg.sender == bills[_id].giver, "The request was sent by giver.");
+        msg.sender.transfer(_money);
     }
 
     // to new a bill
