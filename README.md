@@ -6,17 +6,13 @@
 
 Before you start, you need to install the following things: 
 
-1. nodejs
-    - [download](https://nodejs.org/)
+1. [nodejs](https://nodejs.org/)
 
-2. truffle
-    - `npm install truffle -g`
+2. [truffle](https://truffleframework.com/truffle)
 
-3. ganache
-    - [download](https://truffleframework.com/ganache)
+3. [ganache](https://truffleframework.com/ganache)
 
-4. metamask
-    - [install](https://metamask.io/)
+4. [metamask](https://metamask.io/)
 
 OK, let's go.
 
