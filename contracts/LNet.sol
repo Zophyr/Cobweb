@@ -30,6 +30,12 @@ contract LNet {
         msg.sender.transfer(_money);
     }
 
+    // asker can use this methon to return money
+    function backMoney (uint _id) public payable {
+        require(msg.value == bills[_id].money, "back right money?");
+        require(msg.sender == bills[_id].asker, "address ok?");
+    }
+
     // to new a bill
     function _createBill (uint _money, address _giver, address _asker) private {
         billCount ++;
