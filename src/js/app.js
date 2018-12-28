@@ -62,26 +62,25 @@ App = {
       if (billCount == 0) {
         var billTemplate = "<tr><th>" + '-' + "</th><td>" + '-' + "</td><td>" + '-' + "</td><td>" + '-' + "</td></tr>"
         billResults.append(billTemplate);
-      }
-      else {
+      } else {
         for (var i = 1; i <= billCount; i++) {
           console.log(i);
           cobInstance.bills(i).then(function (bill) {
             console.log('get bill: ' + i);
-  
+
             var billId = bill[0];
             var billMoney = bill[1];
             var billGiver = bill[2];
             var billAsker = bill[3];
-  
+
             console.log(billId + " " + billMoney + " " + billGiver + " " + billAsker);
-  
+
             var billTemplate = "<tr><th>" + billId + "</th><td>" + billMoney + "</td><td>" + billGiver + "</td><td>" + billAsker + "</td></tr>"
             billResults.append(billTemplate);
           })
         }
       }
-      
+
       loader.hide();
       content.show();
     })

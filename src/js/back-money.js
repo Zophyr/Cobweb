@@ -56,17 +56,17 @@ App = {
         console.log("backMoney");
         var backIdInput = $('#backIdInput').val();
         var backMoneyInput = $('#backMoneyInput').val();
-    
+
         App.contracts.Cobweb.deployed().then(function (i) {
-          cobInstance = i;
-          return cobInstance.backMoney(backIdInput, {
-            from: App.account,
-            value: backMoneyInput
-          });
+            cobInstance = i;
+            return cobInstance.backMoney(backIdInput, {
+                from: App.account,
+                value: backMoneyInput
+            });
         }).then(function (result) {
-          App.render();
+            App.render();
         });
-      },
+    },
 };
 
 $(function () {

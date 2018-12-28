@@ -56,16 +56,16 @@ App = {
         console.log("takeMoney");
         var takeIdInput = $('#takeIdInput').val();
         var takeMoneyInput = $('#takeMoneyInput').val();
-    
+
         App.contracts.Cobweb.deployed().then(function (i) {
-          cobInstance = i;
-          return cobInstance.takeMoney(takeIdInput, takeMoneyInput, {
-            from: App.account
-          });
+            cobInstance = i;
+            return cobInstance.takeMoney(takeIdInput, takeMoneyInput, {
+                from: App.account
+            });
         }).then(function (result) {
-          App.render();
+            App.render();
         });
-      },
+    },
 };
 
 $(function () {

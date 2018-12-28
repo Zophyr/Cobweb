@@ -56,16 +56,16 @@ App = {
         console.log("healMoney");
         var healIdInput = $('#healIdInput').val();
         var healMoneyInput = $('#healMoneyInput').val();
-    
+
         App.contracts.Cobweb.deployed().then(function (i) {
-          cobInstance = i;
-          return cobInstance.healMoney(healIdInput, healMoneyInput, {
-            from: App.account
-          });
+            cobInstance = i;
+            return cobInstance.healMoney(healIdInput, healMoneyInput, {
+                from: App.account
+            });
         }).then(function (result) {
-          App.render();
+            App.render();
         });
-      },
+    },
 };
 
 $(function () {
