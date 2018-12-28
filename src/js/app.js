@@ -51,6 +51,35 @@ App = {
       }
     });
 
+    App.contracts.LNet.deployed().then(function (i) {
+      lnetInstance = i;
+      return lnetInstance.billCount()
+    }).then(function (billCount) {
+      console.log(billCount.toNumber());
+      var billResults = $('#billResults');
+      billResults.empty();
+
+      for (var i = 1; i <= billCount; i++) {
+        console.log(i);
+        lnetInstance.bills(i).then(function (bill) {
+          console.log('get bill');
+
+          var billId = bill[0];
+          var billMoney = bill[1];
+          var billGiver = bill[2];
+          var billAsker = bill[3];
+
+          console.log(billId + " " + billMoney + " " + billGiver + " " + billAsker);
+
+          var billTemplate = "<tr><th>" + billId + "</th><td>" + billMoney + "</td><td>" + billGiver + "</td><td>" + billAsker + "</td></tr>"
+          billResults.append(billTemplate);
+        })
+      }
+
+      loader.hide();
+      content.show();
+    })
+
     // App.contracts.LNet.deployed().then(function (i) {
     //   lnetInstance = i;
     //   web3.eth.getAccounts().then(function (i) {
@@ -71,22 +100,22 @@ App = {
     //   })
     // })
 
-    App.contracts.LNet.deployed().then(function (i) {
-      lnetInstance = i;
-      return lnetInstance;
-    }).then(function (ins) {
-      addressList = web3.eth.accounts;
-      console.log(addressList);
-      return lnetInstance.createBill(111, '0x6dCAEab87D9CC0723f61692A60943b585160ab73', '0x6dCAEab87D9CC0723f61692A60943b585160ab73', {
-        from: '0x6dCAEab87D9CC0723f61692A60943b585160ab73',
-        value: 111
-      })
-      // return lnetInstance.billCount()
-    }).then(() => {
-      return lnetInstance.billCount();
-    }).then ((billCount) => {
-      console.log(billCount.toNumber());
-    });
+    // App.contracts.LNet.deployed().then(function (i) {
+    //   lnetInstance = i;
+    //   return lnetInstance;
+    // }).then(function (ins) {
+    //   addressList = web3.eth.accounts;
+    //   console.log(addressList);
+    //   return lnetInstance.createBill(111, '0x6dCAEab87D9CC0723f61692A60943b585160ab73', '0x6dCAEab87D9CC0723f61692A60943b585160ab73', {
+    //     from: '0x6dCAEab87D9CC0723f61692A60943b585160ab73',
+    //     value: 111
+    //   })
+    //   // return lnetInstance.billCount()
+    // }).then(() => {
+    //   return lnetInstance.billCount();
+    // }).then ((billCount) => {
+    //   console.log(billCount.toNumber());
+    // });
 
 
     // Load contract data
@@ -137,6 +166,23 @@ App = {
   //       console.error(err);
   //     });
   //   }
+  createBill: function () {
+    var moneyInput = $('#moneyInput').val();
+    var giverInput = $('#giverInput').val();
+    var askerInput = $('#askerInput').val();
+
+    App.contracts.LNet.deployed().then(function (i) {
+      lnetInstance = i;
+      return lnetInstance.createBill(moneyInput, giverInput, askerInput, {
+        from: giverInput,
+        value: moneyInput
+      })
+    }).then(function () {
+      App.render();
+      // setTimeout("App.render()", 1000);
+      // setTimeout("$(\"#content\").show(); $(\"#loader\").show();", 1000);
+    })
+  }
 };
 
 $(function () {
