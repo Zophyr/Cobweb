@@ -100,12 +100,8 @@ App = {
 
   takeMoney: function () {
     console.log("takeMoney");
-
     var takeIdInput = $('#takeIdInput').val();
     var takeMoneyInput = $('#takeMoneyInput').val();
-
-    console.log(takeIdInput);
-    console.log(takeMoneyInput);
 
     App.contracts.LNet.deployed().then(function (i) {
       lnetInstance = i;
@@ -114,9 +110,26 @@ App = {
       });
     }).then(function (result) {
       App.render();
-    })
+    });
+  },
 
+  backMoney: function () {
+    console.log("backMoney");
+    var backIdInput = $('#backIdInput').val();
+    var backMoneyInput = $('#backMoneyInput').val();
+
+    App.contracts.LNet.deployed().then(function (i) {
+      lnetInstance = i;
+      return lnetInstance.backMoney(backIdInput, {
+        from: App.account,
+        value: backMoneyInput
+      });
+    }).then(function (result) {
+      App.render();
+    });
   }
+
+
 };
 
 $(function () {
