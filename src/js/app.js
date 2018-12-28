@@ -127,6 +127,21 @@ App = {
     }).then(function (result) {
       App.render();
     });
+  },
+
+  healMoney: function () {
+    console.log("healMoney");
+    var healIdInput = $('#healIdInput').val();
+    var healMoneyInput = $('#healMoneyInput').val();
+
+    App.contracts.LNet.deployed().then(function (i) {
+      lnetInstance = i;
+      return lnetInstance.healMoney(healIdInput, healMoneyInput, {
+        from: App.account
+      });
+    }).then(function (result) {
+      App.render();
+    });
   }
 
 
