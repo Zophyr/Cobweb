@@ -44,21 +44,38 @@
             <tbody id="billResults">
             </tbody>
           </table>
+
           <hr />
+
           <form onSubmit="App.createBill(); return false;">
             <div class="form-group">
               <label for="moneyInput">money</label>
-              <input class="form-control" id="moneyInput"/>
-              <hr />
+              <input class="form-control" id="moneyInput" />
+              <br />
               <label for="giverInput">giver</label>
-              <input class="form-control" id="giverInput"/>
-              <hr />
+              <input class="form-control" id="giverInput" />
+              <br />
               <label for="askerInput">asker</label>
-              <input class="form-control" id="askerInput"/>
+              <input class="form-control" id="askerInput" />
             </div>
+            <br />
             <button type="submit" class="btn btn-primary">create bill</button>
-            <hr />
           </form>
+
+          <hr />
+
+          <form onSubmit="App.takeMoney(); return false;">
+            <div class="form-group">
+              <label for="takeIdInput">id</label>
+              <input class="form-control" id="takeIdInput" />
+              <br />
+              <label for="takeMoneyInput">money</label>
+              <input class="form-control" id="takeMoneyInput" />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">take money</button>
+          </form>
+
           <!-- <form onSubmit="App.castVote(); return false;">
               <div class="form-group">
                 <label for="candidatesSelect">Select Candidate</label>
