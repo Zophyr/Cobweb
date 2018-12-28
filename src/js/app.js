@@ -79,94 +79,10 @@ App = {
       loader.hide();
       content.show();
     })
-
-    // App.contracts.LNet.deployed().then(function (i) {
-    //   lnetInstance = i;
-    //   web3.eth.getAccounts().then(function (i) {
-    //     addressList = i;
-    //     return addressList;
-    //   }).then(function (thelist) {
-    //     lnetInstance.createBill(toETH('111'), addressList[1], addressList[2], {
-    //       from: addressList[1],
-    //       value: toETH('111')
-    //     });
-    //     lnetInstance.createBill(toETH('222'), addressList[3], addressList[4], {
-    //       from: addressList[3],
-    //       value: toETH('222')
-    //     });
-    //     return lnetInstance.billCount();
-    //   }).then(function (billCount) {
-    //     console.log(billCount);
-    //   })
-    // })
-
-    // App.contracts.LNet.deployed().then(function (i) {
-    //   lnetInstance = i;
-    //   return lnetInstance;
-    // }).then(function (ins) {
-    //   addressList = web3.eth.accounts;
-    //   console.log(addressList);
-    //   return lnetInstance.createBill(111, '0x6dCAEab87D9CC0723f61692A60943b585160ab73', '0x6dCAEab87D9CC0723f61692A60943b585160ab73', {
-    //     from: '0x6dCAEab87D9CC0723f61692A60943b585160ab73',
-    //     value: 111
-    //   })
-    //   // return lnetInstance.billCount()
-    // }).then(() => {
-    //   return lnetInstance.billCount();
-    // }).then ((billCount) => {
-    //   console.log(billCount.toNumber());
-    // });
-
-
-    // Load contract data
-    // App.contracts.LNet.deployed().then(function(instance) {
-    //   lnetInstance = instance;
-    //   return lnetInstance.billCount();
-    // }).then(function(billCount) {
-    //   console.log(billCount.toNumber());
-    //   var candidatesResults = $("#candidatesResults");
-    //   candidatesResults.empty();
-
-    //   var candidatesSelect = $('#candidatesSelect');
-    //   candidatesSelect.empty();
-
-    //   for (var i = 1; i <= billCount; i++) {
-    //     lnetInstance.bills(i).then(function(candidate) {
-    //       var id = candidate[0];
-    //       var name = candidate[1];
-    //       var voteCount = candidate[2];
-
-    //       // Render candidate Result
-    //       var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>"
-    //       candidatesResults.append(candidateTemplate);
-
-    //       // Render candidate ballot option
-    //       // var candidateOption = "<option value='" + id + "' >" + name + "</ option>"
-    //       // candidatesSelect.append(candidateOption);
-    //     });
-    //   }
-
-    //   loader.hide();
-    //   content.show();
-    //   // return lnetInstance.voters(App.account);
-    // }).catch(function(error) {
-    //   console.warn(error);
-    // });
   },
 
-  //   castVote: function() {
-  //     var candidateId = $('#candidatesSelect').val();
-  //     App.contracts.LNet.deployed().then(function(instance) {
-  //       return instance.vote(candidateId, { from: App.account });
-  //     }).then(function(result) {
-  //       // Wait for votes to update
-  //       $("#content").hide();
-  //       $("#loader").show();
-  //     }).catch(function(err) {
-  //       console.error(err);
-  //     });
-  //   }
   createBill: function () {
+    console.log("createBill");
     var moneyInput = $('#moneyInput').val();
     var giverInput = $('#giverInput').val();
     var askerInput = $('#askerInput').val();
@@ -174,14 +90,32 @@ App = {
     App.contracts.LNet.deployed().then(function (i) {
       lnetInstance = i;
       return lnetInstance.createBill(moneyInput, giverInput, askerInput, {
-        from: giverInput,
+        from: App.account,
         value: moneyInput
       })
     }).then(function () {
       App.render();
-      // setTimeout("App.render()", 1000);
-      // setTimeout("$(\"#content\").show(); $(\"#loader\").show();", 1000);
     })
+  },
+
+  takeMoney: function () {
+    console.log("takeMoney");
+
+    var takeIdInput = $('#takeIdInput').val();
+    var takeMoneyInput = $('#takeMoneyInput').val();
+
+    console.log(takeIdInput);
+    console.log(takeMoneyInput);
+
+    App.contracts.LNet.deployed().then(function (i) {
+      lnetInstance = i;
+      return lnetInstance.takeMoney(takeIdInput, takeMoneyInput, {
+        from: App.account
+      });
+    }).then(function (result) {
+      App.render();
+    })
+
   }
 };
 
