@@ -24,7 +24,7 @@ App = {
   },
 
   initContract: function () {
-    $.getJSON("https://raw.githubusercontent.com/Zophyr/Cobweb/gh-pages/Cobweb.json", function (cobweb) {
+    $.getJSON("https://raw.githubusercontent.com/Zophyr/Cobweb/gh-pages/json/Cobweb.json", function (cobweb) {
       // Instantiate a new truffle contract from the artifact
       App.contracts.Cobweb = TruffleContract(cobweb);
       // Connect provider to interact with contract
