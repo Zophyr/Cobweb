@@ -55,3 +55,17 @@ Using network 'development'.
   5 passing (1s)
 
 ```
+
+## User Interface
+
+You can run 
+
+```shell
+$ npm run dev
+```
+
+to open the website for cobweb.
+
+When you want to connect to the blockchain, you need to add a account from **Ganache** to **metamask**.
+
+After that, you can see your account address display on the bottom of the website.
