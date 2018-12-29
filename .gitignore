@@ -78,6 +78,3 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
-
-# truffle migrations build file
-build/contracts/
