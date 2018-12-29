@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Cobweb -- A P2P lending platform. </title>
+
+  <!-- Bootstrap -->
+  <link href="src/css/bootstrap.min.css" rel="stylesheet">
+  <link href="src/css/me.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <div class="container" style="max-width: 768px;">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="text-center">Cobweb</h1>
+        <h4 class="text-center">💸 A P2P lending platform on Ethereum blockchain.</h4>
+        <hr />
+        <br />
+
+        <div id="loader">
+          <p class="text-center">Loading...</p>
+        </div>
+
+        <div id="content" style="display: none;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#id</th>
+                <th scope="col">money</th>
+                <th scope="col">from</th>
+                <th scope="col">to</th>
+              </tr>
+            </thead>
+            <tbody id="billResults">
+            </tbody>
+          </table>
+
+          <hr />
+
+          <section class="buttons">
+            <a href="./src/create-bill.html" class="btn btn-3">Create Bill</a>
+            <a href="./src/take-money.html" class="btn btn-3">Take Money</a>
+            <a href="./src/back-money.html" class="btn btn-3">Back Money</a>
+            <a href="./src/heal-money.html" class="btn btn-3">Heal Money</a>
+          </section>
+
+          <hr />
+          
+          <p id="accountAddress" class="text-center"></p>
+
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="src/js/bootstrap.min.js"></script>
+  <script src="src/js/web3.min.js"></script>
+  <script src="src/js/truffle-contract.js"></script>
+  <script src="src/js/app.js"></script>
+  <script src="src/js/style.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.12.1/TweenMax.min.js"></script>
+</body>
+
+</html>
