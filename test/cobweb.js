@@ -15,7 +15,7 @@ contract("Cobweb", function () {
             addressList = i;
             return addressList;
         }).then(function (ads) {
-            assert.equal(ads.length, 10, "Found 10 addresses.");
+            assert.equal(ads.length >= 10, true, "Found 10 addresses.");
         })
     });
 
