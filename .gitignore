@@ -81,3 +81,4 @@ typings/
 
 # truffle migrations build file
 build/contracts/
+.DS_Store
