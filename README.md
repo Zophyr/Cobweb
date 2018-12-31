@@ -10,7 +10,7 @@ The platform is dedicated to solving the problem of asymmetric information betwe
 
 ![quick-look](./src/img/quick-look.gif)
 
-## Why do we need to use Cobweb ?
+## Why do we need Cobweb ?
 
 ### Transparent
 
@@ -91,3 +91,17 @@ to open the website for cobweb.
 When you want to connect to the blockchain, you need to add a account from **Ganache** to **metamask**.
 
 After that, you can see your account address display on the bottom of the website.
+
+## Room for improvement
+
+### Mortgage transfer
+
+We can write the lender's mortgage ownership to the blockchain. When the lender is unable to repay the debt, we automatically transfer the ownership of the mortgage to the borrower. However, the problem is that the relevant society and relevant legal institutions are required to recognize the contract.
+
+### Credit rating
+
+With the help of Ethereum, we give each customer a credit rating based on the user's past loan and repayment situation. According to different ratings, the amount of money the user can borrow will be different.
+
+### Better human-computer interaction
+
+It should be cross-platform. There shouldn't be just one web side, there should be a mobile client and a computer client or even a WeChat miniprogram. At the same time, there is still huge room for improvement in human-computer interaction.
