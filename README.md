@@ -1,6 +1,14 @@
 # Cobweb
 
-💸 A P2P lending platform on Ethereum blockchain.
+💸 A P2P lending platform based on Ethereum. 
+
+## What is Cobweb ? 
+
+Cobweb is a P2P lending platform based on Ethereum. 
+
+![quick-look](./src/img/quick-look.gif)
+
+The platform is dedicated to solving the problem of asymmetric information between the two parties in the P2P lending, misappropriation of borrowings by the transaction intermediary platform, and even the borrower's overdue payment.
 
 ## Quick Start
 
