@@ -6,9 +6,23 @@
 
 Cobweb is a P2P lending platform based on Ethereum. 
 
+The platform is dedicated to solving the problem of asymmetric information between the two parties in the P2P lending, misappropriation of borrowings by the transaction intermediary platform, and even the borrower's overdue payment.
+
 ![quick-look](./src/img/quick-look.gif)
 
-The platform is dedicated to solving the problem of asymmetric information between the two parties in the P2P lending, misappropriation of borrowings by the transaction intermediary platform, and even the borrower's overdue payment.
+## Why do we need to use Cobweb ?
+
+### Transparent
+
+Everyone can check the borrowing situation of everyone, the borrower and the lender are all in the same position, and there will be no information asymmetry.
+
+### No Middleman
+
+Every loan is directly from the borrower to the lender, without passing through the middleman, so there will be no situation where the platform collapses and the money escapes.
+
+### Credit system
+
+With the blockchain, we can record the repayment situation of each individual, the borrowing situation, we can establish an open and transparent credit system based on economic principles and sociology.
 
 ## Quick Start
 
